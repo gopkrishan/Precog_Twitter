@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Analysis</title>
+  <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <style media="screen" type="text/css">
+  .btn:focus, .upload-btn:focus{
+    outline: 0 ;
+  }
+  html,
+  body {
+    height: 100%;
+    background-color: #4791D2;
+  }
+  body {
+    text-align: center;
+    font-family: 'Raleway', sans-serif;
+  }
+  .row {
+    margin-top: 80px;
+  }
+  .upload-btn {
+    color: #ffffff;
+    background-color: #F89406;
+    border: none;
+  }
+  .upload-btn:hover,
+  .upload-btn:focus,
+  .upload-btn:active,
+  .upload-btn.active {
+    color: #ffffff;
+    background-color: #FA8900;
+    border: none;
+  }
+  h4 {
+    padding-bottom: 30px;
+    color: #B8BDC1;
+  }
+  .glyphicon {
+    font-size: 5em;
+    color: #9CA3A9;
+  }
+
+  h2 {
+    margin-top: 15px;
+    color: #68757E;
+  }
+
+  .panel {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  #upload-input {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .main-container {
+      width: 100%;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .container {
+      width: 450px;
+    }
+  }
+  </style>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+
+    // Load the Visualization API and the corechart package.
+    google.charts.load('current', {'packages':['corechart','gauge','geochart']});
+
+    // Set a callback to run when the Google Visualization API is loaded.
+    google.charts.setOnLoadCallback(get_location);
+    google.charts.setOnLoadCallback(get_Tweet_Retweet);
+    google.charts.setOnLoadCallback(get_text_images);
+    google.charts.setOnLoadCallback(get_fav_Count);
+    google.charts.setOnLoadCallback(get_popularity);
+
+    // Callback that creates and populates a data table,
+    // instantiates the pie chart, passes in the data and
+    // draws it.
+    function get_Tweet_Retweet()
+    {
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Type');
+      data.addColumn('number', 'Count');
+      data.addRows( {{tweet_retweet|safe}} );
+
+      // Set chart options
+      var options = {'title':'Original vs Retweets',
+                     'width':400,
+                     'height':300};
+
+      // Instantiate and draw our chart, passing in some options.
+      var chart = new google.visualization.PieChart(document.getElementById('Tweet_Retweet'));
+      chart.draw(data, options);
+
+    }
+    function get_text_images()
+    {
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Type');
+      data.addColumn('number', 'Count');
+      data.addRows( {{text_images|safe}} );
+
+      // Set chart options
+      var options = {'title':'Distribution of Content in the Tweets',
+                     'width':400,
+                     'height':300,
+                     'pieHole':0.4,
+                   };
+
+      // Instantiate and draw our chart, passing in some options.
+      var chart = new google.visualization.PieChart(document.getElementById('Text_Image'));
+      chart.draw(data, options);
+    }
+    function get_fav_Count()
+    {
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Type');
+      data.addColumn('number', 'Count');
+      data.addRows( {{favcount|safe}} );
+
+      // Set chart options
+      var options = {'title':'Fav_Count on Tweets',
+                     'width':400,
+                     'height':300};
+
+      // Instantiate and draw our chart, passing in some options.
+      var chart = new google.visualization.PieChart(document.getElementById('Fav_Count'));
+      chart.draw(data, options);
+    }
+
+    function get_popularity()
+    {
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Topping');
+      data.addColumn('number', 'Slices');
+      data.addRows( {{popularity|safe}} );
+
+      // Set chart options
+      var options = {'title':'Popularity in Delhi',
+                     'width': 400,
+                      'height': 120,
+                      'greenFrom': 60, 'greenTo': 100,
+                      'yellowFrom':40, 'yellowTo': 60,
+                   };
+
+      // Instantiate and draw our chart, passing in some options.
+      var chart = new google.visualization.Gauge(document.getElementById('Popularity'));
+      chart.draw(data, options);
+    }
+    function get_location()
+    {
+      var data = google.visualization.arrayToDataTable([
+        ['Country', 'Popularity'],
+        ['New Delhi', 200],
+        ['Ahmedabad', 300],
+        ['Agra', 400],
+        ['Chennai', 500],
+        ['West Bengal', 600],
+        ['Rajasthan', 700]
+      ]);
+
+      var options = {
+         sizeAxis: { minValue: 0, maxValue: 100 },
+         region: '034', // Western Europe
+         displayMode: 'markers',
+         colorAxis: {colors: ['#e7711c', '#4374e0']} // orange to blue
+       };
+
+      var chart = new google.visualization.GeoChart(document.getElementById('Location'));
+
+      chart.draw(data, options);
+
+    }
+  </script>
+</head>
+<body>
+  {% load staticfiles %}
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class='row center-block'>
+                <h1>Analysis</h1>
+                <div id="Location"></div>
+                <br><br>
+                <div id="Popularity"></div>
+                <br><br>
+                <div id='Hash_Cloud' class='text-center'> Hash_Cloud </div>
+                <img src = "{% static 'project_pre/images/WordCloud.png' %}"style = "width:640; height:480" class='img-rounded center-block'/>
+                <br><br>
+                <div id="Tweet_Retweet"></div>
+                <br><br>
+                <div id="Fav_Count"></div>
+                <br><br>
+                <div id="Text_Image"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</body>
+</html>
