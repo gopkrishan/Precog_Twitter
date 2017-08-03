@@ -1,21 +1,21 @@
 # Twitter Analyser
 
-A simple webapp that depicts relevant Twitter data in the form of charts and graphs.
+A simple web-app that depicts relevant Twitter data in the form of charts and graphs.
 
-**Input** Hashtag related to particular person or an event.
+**Input** Hashtag related to a particular person or an event.
 **Output** The following:
 * Location of the the tweets.
 * Popularity of the tweets in Delhi.
-* Distrubution of the original and retweeted tweets.
+* Distribution of the original and retweeted tweets.
 * Distribution of the favourite counts on the original and retweeted tweets.
 * Distribution of the content in the tweets i.e. whether it is only text or text and image.
 * Top 10 hashtags related to the tweet.
 
 ## Tools and Frameworks
 
-| Plugin | README |
+|  |  |
 | ------ | ------ |
-| Django | Webapp framework. |
+| Django | Web app framework. |
 | MongoDB | For the database. |
 | Google Charts | For interactive graphs. |
 | WordCloud | For generating word clouds. |
@@ -42,21 +42,21 @@ Currently, the input is New Delhi, but could be changed to any place. The popula
     * Popularity could be classified as either positive or negative. The gauge meter shows the particular number.
     *
 3. **Top 10 Hashtags:**
-Upon extraction of tweets with the required hashtags, we can scrap the other hashtags used in that particular tweet. However, we maintain a count of the hashtags in order to generate a wordcloud of most frequent hashtags.
+Upon extraction of tweets with the required hashtags, we can scrap the other hashtags used in that particular tweet. However, we maintain a count of the hashtags in order to generate a word-cloud of most frequent hashtags.
 
 4. **Distribution of Original Tweets vs Retweeted Tweets:**
-After scraping the tweets, it is easy to categorise the retweeted tweets from the original tweets as the retweeted tweets have a property call `retweeted_status`. So, we can get the distribution of the original and retweeted tweets.
+After scraping the tweets, it is easy to categorise the retweeted tweets from the original tweets as the retweeted tweets have a property called `retweeted_status`. So, we can get the distribution of the original and retweeted tweets.
 
 5. **Distribution of the Content in the tweets**
-From the scraped tweets, we search for the `media` tag as it tells us if there was any media (image) attached to the tweet.
+From the scraped tweets, we search for the `media` tag as it tells us if there were any media (image) attached to the tweet.
 
 6. **Favourite Count on the Original Tweets**
-From the scraped tweeets, we can determine the Original and Retweeted Tweets (step 4). After that we collect the `favourite_count` related to that particular tweet.
+From the scraped tweets, we can determine the Original and Retweeted Tweets (step 4). After that, we collect the `favourite_count` related to that particular tweet.
 
 ## Installation
 
 * Clone the repository.
-* Switch to the repositroy folder.
+* Switch to the repository folder.
 * Run the following command.
 
 ```sh
