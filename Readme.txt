@@ -62,3 +62,5 @@ From the scraped tweets, we can determine the Original and Retweeted Tweets (ste
 ```sh
 $ python manage.py runserver
 ```
+
+** For the database i have dumped one of the mongodb collections made during the task  
